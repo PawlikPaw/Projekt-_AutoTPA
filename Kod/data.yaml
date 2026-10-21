@@ -1,0 +1,10 @@
+path: ./dataset  # Ścieżka bazowa do datasetu
+train: images/train
+val: images/val
+
+# Liczba punktów kluczowych
+kpt_shape: [4, 2]  # 4 punkty, każdy ma współrzędne (x, y)
+
+# Nazwy klas 
+names:
+  0: "dog_joint"
