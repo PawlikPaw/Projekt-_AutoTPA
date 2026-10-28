@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTPA - Analiza RTG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Pasek boczny: Lista pacjentów -->
+        <aside class="sidebar">
+            <div class="logo">
+                🦴 Auto<span>TPA</span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Szukaj pacjenta...">
+            </div>
+
+            <div class="patient-list" id="patientList">
+                <h3 class="section-title">Ostatni pacjenci</h3>
+                <div class="patient-card active" data-name="Reksio" data-date="28.10.2026">
+                    <div class="patient-avatar">R</div>
+                    <div class="patient-info">
+                        <h4>Reksio (Owczarek)</h4>
+                        <p>ID: #1029 • Dysplazja biodrowa</p>
+                    </div>
+                </div>
+                <div class="patient-card" data-name="Bąbel" data-date="27.10.2026">
+                    <div class="patient-avatar">B</div>
+                    <div class="patient-info">
+                        <h4>Bąbel (Buldog)</h4>
+                        <p>ID: #1028 • Złamanie kości udowej</p>
+                    </div>
+                </div>
+                <div class="patient-card" data-name="Luna" data-date="25.10.2026">
+                    <div class="patient-avatar">L</div>
+                    <div class="patient-info">
+                        <h4>Luna (Husky)</h4>
+                        <p>ID: #1027 • Kontrola pooperacyjna</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Główny widok roboczy -->
+        <main class="main-content">
+            <!-- Pasek górny -->
+            <header class="topbar">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    Pacjenci / Reksio / <strong>Analiza RTG - 28.10.2026</strong>
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn btn-outline" id="btnExport">Eksportuj Raport</button>
+                    <button class="btn btn-primary" id="btnSave">Zapisz w Bazie</button>
+                    <div class="user-profile">Dr. M. Kowalski</div>
+                </div>
+            </header>
+
+            <!-- Przestrzeń analizy zdjęć -->
+            <div class="workspace">
+                <!-- Lewy panel: Zdjęcie przed -->
+                <div class="viewer-panel">
+                    <div class="panel-header">
+                        <span>Przed operacją (Oryginał)</span>
+                        <div class="tools">
+                            <span class="tool-icon" onclick="toggleTool(this)" title="Powiększenie">🔍</span>
+                            <span class="tool-icon" onclick="toggleTool(this)" title="Miarka">📏</span>
+                        </div>
+                    </div>
+                    <div class="xray-container">
+                        <!-- Tu byłoby zdjęcie RTG -->
+                        <div class="xray-placeholder">
+                            <p>Zdjęcie RTG - Miednica (AP)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawy panel: Wynik AI / Po operacji -->
+                <div class="viewer-panel">
+                    <div class="panel-header">
+                        <span class="ai-badge">✨ Symulacja AI</span>
+                        <div class="tools">
+                            <span class="tool-icon active-tool" onclick="toggleVisibility(this)" title="Pokaż/Ukryj wektory">👁️</span>
+                        </div>
+                    </div>
+                    <div class="xray-container ai-overlay">
+                        <!-- Tu byłoby zdjęcie RTG z naniesionymi wektorami korekty -->
+                        <div class="xray-placeholder corrected" id="aiVisualization">
+                            <div class="overlay-line" id="correctionLine"></div>
+                            <p>Wizualizacja po korekcie</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel informacyjny AI po prawej -->
+                <aside class="analysis-panel">
+                    <h3>Raport z analizy AI</h3>
+                    
+                    <div class="alert warning">
+                        <strong>Wykryto problem:</strong> Podwinięcie głowy kości udowej (lewa strona).
+                    </div>
+
+                    <div class="metric-group">
+                        <div class="metric">
+                            <span class="metric-label">Kąt Norberga (Lewy)</span>
+                            <span class="metric-value danger" id="angleLeft">92°</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Kąt Norberga (Prawy)</span>
+                            <span class="metric-value success" id="angleRight">106°</span>
+                        </div>
+                    </div>
+
+                    <div class="ai-suggestion">
+                        <h4>Sugerowana korekta</h4>
+                        <p>Zalecana osteotomia potrójna miednicy (TPO). Wymagany obrót panewki o <strong id="rotationValue">15 stopni</strong>.</p>
+                        <button class="btn btn-secondary w-100" id="btnSimulate">Przelicz symulację</button>
+                    </div>
+                    
+                    <div class="ai-suggestion mt-auto">
+                        <h4>Jakość zdjęcia</h4>
+                        <div class="quality-bar">
+                            <div class="quality-fill" style="width: 85%;"></div>
+                        </div>
+                        <p class="quality-text">Odpowiednia do diagnozy (85%)</p>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+
+    <!-- Załączenie zewnetrznego pliku JS -->
+    <script src="script.js"></script>
+</body>
+</html>
